@@ -2,30 +2,35 @@ import express, { Request, Response, Express } from 'express';
 
 const HTTP_PORT = 3000;
 
-export default class ExpressServer {
+class ExpressServer {
   app: Express;
 
   constructor() {
     this.app = express();
+    this.setup();
   }
 
   setupRoutes() {
-    this.app.get('/', (req: Request, res: Response) => {
-      res.send('Hello World!');
+    this.app.get('/healthcheck', (req: Request, res: Response) => {
+      res.json({ message: 'Hello World!' });
     });
   }
 
   setup() {
-      this.setupRoutes();
+    this.setupRoutes();
   }
 
   listen() {
     this.app.listen(HTTP_PORT);
   }
 
-  static init() {
-    const server = new ExpressServer();
-    server.setup();
-    server.listen();
+  getApp() {
+    return this.app;
+  }
+
+  static server() {
+    return new ExpressServer();
   }
 }
+
+export default ExpressServer;
