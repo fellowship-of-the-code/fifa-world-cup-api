@@ -1,0 +1,10 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    entrypoint: "sh"
+    command: -c "yarn install && yarn start"
