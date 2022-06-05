@@ -7,28 +7,29 @@ class ExpressServer {
 
   constructor() {
     this.app = express();
-    this.setup();
   }
 
-  setupRoutes() {
+  setupRoutes(): void {
     this.app.get('/healthcheck', (req: Request, res: Response) => {
       res.json({ message: 'Hello World!' });
     });
   }
 
-  setup() {
+  setup(): ExpressServer {
     this.setupRoutes();
+    return this;
   }
 
-  listen() {
+  listen(): ExpressServer {
     this.app.listen(HTTP_PORT);
+    return this;
   }
 
-  getApp() {
+  getApp(): Express {
     return this.app;
   }
 
-  static server() {
+  static server(): ExpressServer {
     return new ExpressServer();
   }
 }

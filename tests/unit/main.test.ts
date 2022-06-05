@@ -1,9 +1,14 @@
 import supertest from 'supertest';
+import { Express } from 'express';
 import ExpressServer from '../../src/infra/http/express/express-server';
 
-const app = ExpressServer.server().getApp();
-
 describe('Express Server', () => {
+  let app: Express;
+
+  beforeAll(() => {
+    app = ExpressServer.server().setup().getApp();
+  });
+
   it('/', async () => {
     const response = await supertest(app)
       .get('/healthcheck');
