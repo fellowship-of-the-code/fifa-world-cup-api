@@ -1,15 +1,3 @@
-import { log } from 'console';
+import ExpressServer from './infra/http/express/express-server';
 
-export default function helloWorld(): String {
-  return 'Hello World';
-}
-
-log(helloWorld());
-
-function keepMeActive() {
-  setTimeout(() => {
-    keepMeActive();
-  }, 1000);
-}
-
-keepMeActive();
+ExpressServer.server().setup().listen();
