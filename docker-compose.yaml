@@ -1,6 +1,6 @@
 version: "3.9"  # optional since v1.27.0
 services:
-  web:
+  web_api:
     build: .
     volumes:
       - .:/app
@@ -8,3 +8,17 @@ services:
       - "3000:3000"
     entrypoint: "sh"
     command: -c "yarn install && yarn start:dev"
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: a-very-strong-password
+      MYSQL_DATABASE: fifa-world-cup
+      MYSQL_USER: galvao-bueno
+      MYSQL_PASSWORD: amigos-da-rede-globo
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
