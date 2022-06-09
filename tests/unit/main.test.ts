@@ -6,7 +6,7 @@ describe('Express Server', () => {
   let app: Express;
 
   beforeAll(() => {
-    app = ExpressServer.server().setup().getApp();
+    app = (new ExpressServer()).setup().getApp();
   });
 
   it('/', async () => {
