@@ -28,8 +28,4 @@ export default class ExpressServer {
   public getApp(): Express {
     return this.app;
   }
-
-  public static server(): ExpressServer {
-    return new ExpressServer();
-  }
 }

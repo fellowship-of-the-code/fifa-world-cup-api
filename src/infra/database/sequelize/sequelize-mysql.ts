@@ -27,16 +27,7 @@ export default class SequelizeMysql {
     };
   }
 
-  public connect():void {
+  public connect(): void {
     this.sequelize.authenticate();
-  }
-
-  public async testConnAndLog(): Promise<void> {
-    try {
-      await this.connect();
-      console.log('Connection has been established successfully.');
-    } catch (error) {
-      console.error('Unable to connect to the database:', error);
-    }
   }
 }
