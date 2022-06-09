@@ -1,5 +1,9 @@
 import ExpressServer from './infra/http/express/express-server';
 import SequelizeMysql from './infra/database/sequelize/sequelize-mysql';
 
-(new SequelizeMysql()).connect();
-(new ExpressServer()).setup().listen();
+export default class Main {
+  public static main(): void {
+    (new SequelizeMysql()).init();
+    (new ExpressServer()).init();
+  }
+}

@@ -3,10 +3,15 @@ import express, { Request, Response, Express } from 'express';
 const HTTP_PORT = 3000;
 
 export default class ExpressServer {
-  private app: Express;
+  private app!: Express;
 
   public constructor() {
+    this.setup();
+  }
+
+  private setup(): void {
     this.app = express();
+    this.setupRoutes();
   }
 
   private setupRoutes(): void {
@@ -15,14 +20,8 @@ export default class ExpressServer {
     });
   }
 
-  public setup(): ExpressServer {
-    this.setupRoutes();
-    return this;
-  }
-
-  public listen(): ExpressServer {
+  public init(): void {
     this.app.listen(HTTP_PORT);
-    return this;
   }
 
   public getApp(): Express {

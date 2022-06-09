@@ -20,14 +20,14 @@ export default class SequelizeMysql {
     );
   }
 
-  public static getOptions(): Options {
+  private static getOptions(): Options {
     return {
       host: 'db',
       dialect: 'mysql',
     };
   }
 
-  public connect(): void {
+  public init(): void {
     this.sequelize.authenticate();
   }
 }
