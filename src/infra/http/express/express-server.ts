@@ -1,27 +1,27 @@
 import express, { Request, Response, Express } from 'express';
 
-const HTTP_PORT = 3000;
+export const HTTP_PORT = 3000;
 
 export default class ExpressServer {
   private app!: Express;
 
   public constructor() {
-    this.setup();
+    this.app = express();
   }
 
-  private setup(): void {
-    this.app = express();
+  public init(): void {
+    this.setup().getApp().listen(HTTP_PORT);
+  }
+
+  public setup(): ExpressServer {
     this.setupRoutes();
+    return this;
   }
 
   private setupRoutes(): void {
     this.app.get('/healthcheck', (req: Request, res: Response) => {
       res.json({ message: 'Hello World!' });
     });
-  }
-
-  public init(): void {
-    this.app.listen(HTTP_PORT);
   }
 
   public getApp(): Express {
