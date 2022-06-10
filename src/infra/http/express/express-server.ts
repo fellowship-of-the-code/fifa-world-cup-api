@@ -3,7 +3,7 @@ import express, { Request, Response, Express } from 'express';
 export const HTTP_PORT = 3000;
 
 export default class ExpressServer {
-  private app!: Express;
+  private app: Express;
 
   public constructor() {
     this.app = express();
