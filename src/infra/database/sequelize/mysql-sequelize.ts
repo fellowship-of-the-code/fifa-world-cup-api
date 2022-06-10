@@ -4,7 +4,7 @@ const DB_NAME = 'fifa-world-cup';
 const DB_USER = 'galvao-bueno';
 const DB_USER_PASSWORD = 'amigos-da-rede-globo';
 
-export default class SequelizeMysql {
+export default class MysqlSequelize {
   private sequelize!: Sequelize;
 
   public constructor() {
@@ -16,7 +16,7 @@ export default class SequelizeMysql {
       DB_NAME,
       DB_USER,
       DB_USER_PASSWORD,
-      SequelizeMysql.getOptions(),
+      MysqlSequelize.getOptions(),
     );
   }
 
