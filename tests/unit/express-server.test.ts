@@ -35,3 +35,22 @@ describe('ExpressServer.init', () => {
     expect(get).toHaveBeenCalledWith('/healthcheck', expect.anything());
   });
 });
+
+describe('ExpressServer.setup', () => {
+  it('should be a function', () => {
+    const server = new ExpressServer();
+    expect(server.setup).toBeInstanceOf(Function);
+  });
+
+  it('should setup express server', () => {
+    const get = jest.fn();
+    mocked.mockReturnValue({
+      get,
+      listen: jest.fn(),
+    });
+
+    (new ExpressServer()).init();
+
+    expect(get).toHaveBeenCalledWith('/healthcheck', expect.anything());
+  });
+});
