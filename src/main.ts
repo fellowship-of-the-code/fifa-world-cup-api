@@ -3,7 +3,10 @@ import MysqlSequelize from './infra/database/sequelize/mysql-sequelize';
 
 export default class Main {
   public static main(): void {
-    (new MysqlSequelize()).init();
-    (new ExpressServer()).init();
+    const database = new MysqlSequelize();
+    const server = new ExpressServer();
+
+    database.init();
+    server.init();
   }
 }
