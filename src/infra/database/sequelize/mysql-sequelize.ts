@@ -1,33 +1,24 @@
-import { Sequelize, Options } from 'sequelize';
-
-const DB_NAME = 'fifa-world-cup';
-const DB_USER = 'galvao-bueno';
-const DB_USER_PASSWORD = 'amigos-da-rede-globo';
+import { Sequelize } from 'sequelize';
+import config from './config';
 
 export default class MysqlSequelize {
   private sequelize!: Sequelize;
 
-  public constructor() {
+  public init(): void {
     this.setup();
+    this.connect();
   }
 
   private setup():void {
     this.sequelize = new Sequelize(
-      DB_NAME,
-      DB_USER,
-      DB_USER_PASSWORD,
-      MysqlSequelize.getOptions(),
+      config.DB_NAME,
+      config.DB_USER,
+      config.DB_USER_PASSWORD,
+      config.DB_DEFAULT_OPTIONS,
     );
   }
 
-  private static getOptions(): Options {
-    return {
-      host: 'db',
-      dialect: 'mysql',
-    };
-  }
-
-  public init(): void {
+  private connect():void {
     this.sequelize.authenticate();
   }
 }
