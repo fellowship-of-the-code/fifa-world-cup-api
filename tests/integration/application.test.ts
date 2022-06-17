@@ -1,15 +1,15 @@
-import supertest from 'supertest';
 import { Express } from 'express';
+import supertest from 'supertest';
 import ExpressServer from '../../src/infra/http/express/express-server';
 
 describe('Express Server', () => {
   let app: Express;
 
   beforeAll(() => {
-    app = ExpressServer.server().setup().getApp();
+    app = (new ExpressServer()).setup().getApp();
   });
 
-  it('/', async () => {
+  it('/healthcheck', async () => {
     const response = await supertest(app)
       .get('/healthcheck');
 

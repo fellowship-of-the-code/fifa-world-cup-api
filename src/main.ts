@@ -1,5 +1,12 @@
 import ExpressServer from './infra/http/express/express-server';
-import SequelizeMysql from './infra/database/sequelize/sequelize-mysql';
+import MysqlSequelize from './infra/database/sequelize/mysql-sequelize';
 
-(new SequelizeMysql()).testConnAndLog();
-ExpressServer.server().setup().listen();
+export default class Main {
+  public static main(): void {
+    const db = new MysqlSequelize();
+    const server = new ExpressServer();
+
+    db.connect();
+    server.init();
+  }
+}

@@ -1,6 +1,8 @@
-import express, { Request, Response, Express } from 'express';
+import express, { Express } from 'express';
+import HealthCheckAdapter from '../../../adapters/healthcheck-adapter';
+import HealthCheckController from '../../../controller/healthcheck-controller';
 
-const HTTP_PORT = 3000;
+export const HTTP_PORT = 3000;
 
 export default class ExpressServer {
   private app: Express;
@@ -9,10 +11,10 @@ export default class ExpressServer {
     this.app = express();
   }
 
-  private setupRoutes(): void {
-    this.app.get('/healthcheck', (req: Request, res: Response) => {
-      res.json({ message: 'Hello World!' });
-    });
+  public init(): void {
+    this
+      .setup()
+      .start();
   }
 
   public setup(): ExpressServer {
@@ -20,16 +22,17 @@ export default class ExpressServer {
     return this;
   }
 
-  public listen(): ExpressServer {
-    this.app.listen(HTTP_PORT);
-    return this;
+  private setupRoutes(): void {
+    this.getApp().get('/healthcheck', HealthCheckAdapter.healthcheck(HealthCheckController.healthcheck));
+  }
+
+  private start(): void {
+    this
+      .getApp()
+      .listen(HTTP_PORT);
   }
 
   public getApp(): Express {
     return this.app;
-  }
-
-  public static server(): ExpressServer {
-    return new ExpressServer();
   }
 }
