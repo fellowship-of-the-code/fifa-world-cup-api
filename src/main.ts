@@ -6,7 +6,7 @@ export default class Main {
     const db = new MysqlSequelize();
     const server = new ExpressServer();
 
-    db.init();
+    db.connect();
     server.init();
   }
 }

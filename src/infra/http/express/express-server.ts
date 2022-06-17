@@ -10,7 +10,9 @@ export default class ExpressServer {
   }
 
   public init(): void {
-    this.setup().getApp().listen(HTTP_PORT);
+    this
+      .setup()
+      .start();
   }
 
   public setup(): ExpressServer {
@@ -19,9 +21,15 @@ export default class ExpressServer {
   }
 
   private setupRoutes(): void {
-    this.app.get('/healthcheck', (req: Request, res: Response) => {
+    this.getApp().get('/healthcheck', (req: Request, res: Response) => {
       res.json({ message: 'Hello World!' });
     });
+  }
+
+  private start(): void {
+    this
+      .getApp()
+      .listen(HTTP_PORT);
   }
 
   public getApp(): Express {

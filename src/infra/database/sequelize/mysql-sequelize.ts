@@ -4,12 +4,7 @@ import config from './config';
 export default class MysqlSequelize {
   private sequelize!: Sequelize;
 
-  public init(): void {
-    this.setup();
-    this.connect();
-  }
-
-  private setup():void {
+  public constructor() {
     this.sequelize = new Sequelize(
       config.DB_NAME,
       config.DB_USER,
@@ -18,7 +13,7 @@ export default class MysqlSequelize {
     );
   }
 
-  private connect():void {
+  public connect():void {
     this.sequelize.authenticate();
   }
 }
