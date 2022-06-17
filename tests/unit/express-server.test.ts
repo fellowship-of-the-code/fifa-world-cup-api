@@ -18,7 +18,8 @@ describe('ExpressServer.init', () => {
       listen,
     });
 
-    (new ExpressServer()).init();
+    const server = new ExpressServer();
+    server.init();
 
     expect(listen).toHaveBeenCalledWith(HTTP_PORT);
   });
@@ -30,7 +31,8 @@ describe('ExpressServer.init', () => {
       listen: jest.fn(),
     });
 
-    (new ExpressServer()).init();
+    const server = new ExpressServer();
+    server.init();
 
     expect(get).toHaveBeenCalledWith('/healthcheck', expect.anything());
   });
@@ -49,7 +51,8 @@ describe('ExpressServer.setup', () => {
       listen: jest.fn(),
     });
 
-    (new ExpressServer()).init();
+    const server = new ExpressServer();
+    server.init();
 
     expect(get).toHaveBeenCalledWith('/healthcheck', expect.anything());
   });

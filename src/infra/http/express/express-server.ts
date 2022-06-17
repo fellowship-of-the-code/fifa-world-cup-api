@@ -1,4 +1,6 @@
-import express, { Request, Response, Express } from 'express';
+import express, { Express } from 'express';
+import HealthCheckAdapter from '../../../adapters/healthcheck-adapter';
+import HealthCheckController from '../../../controller/healthcheck-controller';
 
 export const HTTP_PORT = 3000;
 
@@ -21,9 +23,7 @@ export default class ExpressServer {
   }
 
   private setupRoutes(): void {
-    this.getApp().get('/healthcheck', (req: Request, res: Response) => {
-      res.json({ message: 'Hello World!' });
-    });
+    this.getApp().get('/healthcheck', HealthCheckAdapter.healthcheck(HealthCheckController.healthcheck));
   }
 
   private start(): void {

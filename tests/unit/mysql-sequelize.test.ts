@@ -11,7 +11,7 @@ describe('MysqlSequelize.connect', () => {
     expect(db.connect).toBeInstanceOf(Function);
   });
 
-  it('should call authenticate method', () => {
+  it('should call authenticate fuction to connect to database', () => {
     const authenticate = jest.fn();
     mocked.mockReturnValue({
       authenticate,
