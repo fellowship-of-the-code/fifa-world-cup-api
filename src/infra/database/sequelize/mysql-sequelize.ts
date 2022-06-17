@@ -13,7 +13,7 @@ export default class MysqlSequelize {
     );
   }
 
-  public connect():void {
+  public connect(): void {
     this.sequelize.authenticate();
   }
 }
