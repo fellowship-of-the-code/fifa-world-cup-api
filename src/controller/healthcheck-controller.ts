@@ -1,9 +1,16 @@
+import { db } from '../main';
+import { ConnStatus } from '../infra/database/sequelize/mysql-sequelize';
+
 export type healthcheck = {
-  message: string;
+  message: string
+  database: ConnStatus
 };
 
 export default class HealthCheckController {
-  public static healthcheck(): healthcheck {
-    return { message: 'Hello World!' };
+  public static async healthcheck(): Promise<healthcheck> {
+    return {
+      message: 'Hello World!',
+      database: await db.getConnStatus(),
+    };
   }
 }

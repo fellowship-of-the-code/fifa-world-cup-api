@@ -1,6 +1,8 @@
 import { Sequelize } from 'sequelize';
 import config from './config';
 
+export type ConnStatus = 'connected' | 'disconnected'
+
 export default class MysqlSequelize {
   private sequelize!: Sequelize;
 
@@ -13,7 +15,20 @@ export default class MysqlSequelize {
     );
   }
 
-  public connect(): void {
-    this.sequelize.authenticate();
+  public async connect(): Promise<void> {
+    await this.sequelize.validate();
+  }
+
+  public async isConnected(): Promise<boolean> {
+    try {
+      await this.connect();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  public async getConnStatus(): Promise<ConnStatus> {
+    return await this.isConnected() ? 'connected' : 'disconnected';
   }
 }
