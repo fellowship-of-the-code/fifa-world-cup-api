@@ -1,8 +1,8 @@
 import MysqlSequelize from '../../src/infra/database/sequelize/mysql-sequelize';
 
-describe('MysqlSequelize.init', () => {
+describe('MysqlSequelize.connect', () => {
   it('should be a function', () => {
-    const database = new MysqlSequelize();
-    expect(database.init).toBeInstanceOf(Function);
+    const db = new MysqlSequelize();
+    expect(db.connect).toBeInstanceOf(Function);
   });
 });
