@@ -16,7 +16,7 @@ export default class MysqlSequelize {
   }
 
   public async connect(): Promise<void> {
-    await this.sequelize.validate();
+    await this.sequelize.authenticate();
   }
 
   public async isConnected(): Promise<boolean> {
