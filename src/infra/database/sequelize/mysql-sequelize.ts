@@ -29,6 +29,9 @@ export default class MysqlSequelize {
   }
 
   public async getConnectionStatus(): Promise<ConnStatus> {
-    return await this.isConnected() ? 'connected' : 'disconnected';
+    if (await this.isConnected()) {
+      return 'connected';
+    }
+    return 'disconnected';
   }
 }

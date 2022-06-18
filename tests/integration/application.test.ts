@@ -23,6 +23,9 @@ describe('Express Server', () => {
     });
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toMatchObject({ message: 'Hello World!' });
+    expect(response.body).toMatchObject({
+      message: 'Hello World!',
+      database: 'connected',
+    });
   });
 });
