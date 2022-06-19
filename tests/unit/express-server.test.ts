@@ -24,7 +24,7 @@ describe('ExpressServer.init', () => {
     expect(listen).toHaveBeenCalledWith(HTTP_PORT);
   });
 
-  it('should setup express server', () => {
+  it('should setup express server routes', () => {
     const get = jest.fn();
     mockExpress.mockReturnValue({
       get,
@@ -44,7 +44,7 @@ describe('ExpressServer.setup', () => {
     expect(server.setup).toBeInstanceOf(Function);
   });
 
-  it('should setup express server', () => {
+  it('should setup express server routes', () => {
     const get = jest.fn();
     mockExpress.mockReturnValue({
       get,
@@ -52,7 +52,7 @@ describe('ExpressServer.setup', () => {
     });
 
     const server = new ExpressServer();
-    server.init();
+    server.setup();
 
     expect(get).toHaveBeenCalledWith('/healthcheck', expect.anything());
   });
@@ -64,7 +64,7 @@ describe('ExpressServer.getApp', () => {
     expect(server.getApp).toBeInstanceOf(Function);
   });
 
-  it('should setup express server', () => {
+  it('should return app', () => {
     const mockApp = {
       get: jest.fn(),
       listen: jest.fn(),
@@ -72,8 +72,6 @@ describe('ExpressServer.getApp', () => {
     mockExpress.mockReturnValue(mockApp);
 
     const server = new ExpressServer();
-    server.init();
-
     expect(server.getApp()).toEqual(mockApp);
   });
 });
