@@ -5,7 +5,7 @@ import ExpressServer from '../../src/infra/http/express/express-server';
 
 jest.mock('sequelize');
 
-const mockSeq = (Sequelize as unknown as jest.Mock);
+const sequelizeMock = (Sequelize as unknown as jest.Mock);
 
 describe('Express Server', () => {
   let app: Express;
@@ -15,9 +15,10 @@ describe('Express Server', () => {
   });
 
   it('/healthcheck all good', async () => {
-    mockSeq.mockReturnValueOnce({
+    sequelizeMock.mockReturnValueOnce({
       authenticate: jest.fn(),
     });
+
     const response = await supertest(app)
       .get('/healthcheck');
 
@@ -29,9 +30,10 @@ describe('Express Server', () => {
   });
 
   it('/healthcheck database disconnected', async () => {
-    mockSeq.mockReturnValueOnce({
+    sequelizeMock.mockReturnValueOnce({
       authenticate: jest.fn().mockRejectedValue(new Error('Error while connecting')),
     });
+
     const response = await supertest(app)
       .get('/healthcheck');
 

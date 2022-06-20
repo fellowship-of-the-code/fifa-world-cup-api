@@ -3,7 +3,7 @@ import ExpressServer, { HTTP_PORT } from '../../src/infra/http/express/express-s
 
 jest.mock('express');
 
-const mockExpress = (express as unknown as jest.Mock);
+const expressMock = (express as unknown as jest.Mock);
 
 describe('ExpressServer.init', () => {
   it('should be a function', () => {
@@ -13,7 +13,7 @@ describe('ExpressServer.init', () => {
 
   it('should start listening to right port', () => {
     const listen = jest.fn();
-    mockExpress.mockReturnValue({
+    expressMock.mockReturnValueOnce({
       get: jest.fn(),
       listen,
     });
@@ -26,7 +26,7 @@ describe('ExpressServer.init', () => {
 
   it('should setup express server routes', () => {
     const get = jest.fn();
-    mockExpress.mockReturnValue({
+    expressMock.mockReturnValueOnce({
       get,
       listen: jest.fn(),
     });
@@ -46,7 +46,7 @@ describe('ExpressServer.setup', () => {
 
   it('should setup express server routes', () => {
     const get = jest.fn();
-    mockExpress.mockReturnValue({
+    expressMock.mockReturnValueOnce({
       get,
       listen: jest.fn(),
     });
@@ -65,13 +65,15 @@ describe('ExpressServer.getApp', () => {
   });
 
   it('should return app', () => {
-    const mockApp = {
+    const appMock = {
       get: jest.fn(),
       listen: jest.fn(),
     };
-    mockExpress.mockReturnValue(mockApp);
+    expressMock.mockReturnValueOnce(appMock);
 
     const server = new ExpressServer();
-    expect(server.getApp()).toEqual(mockApp);
+    const app = server.getApp();
+
+    expect(app).toEqual(appMock);
   });
 });
