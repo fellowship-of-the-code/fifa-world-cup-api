@@ -14,18 +14,31 @@ describe('Express Server', () => {
     app = (new ExpressServer()).setup().getApp();
   });
 
-  it('/healthcheck', async () => {
-    const response = await supertest(app)
-      .get('/healthcheck');
-
-    mockSeq.mockReturnValue({
+  it('/healthcheck all good', async () => {
+    mockSeq.mockReturnValueOnce({
       authenticate: jest.fn(),
     });
+    const response = await supertest(app)
+      .get('/healthcheck');
 
     expect(response.statusCode).toEqual(200);
     expect(response.body).toMatchObject({
       message: 'Hello World!',
       database: 'connected',
+    });
+  });
+
+  it('/healthcheck database disconnected', async () => {
+    mockSeq.mockReturnValueOnce({
+      authenticate: jest.fn().mockRejectedValue(new Error('Error while connecting')),
+    });
+    const response = await supertest(app)
+      .get('/healthcheck');
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).toMatchObject({
+      message: 'Hello World!',
+      database: 'disconnected',
     });
   });
 });
