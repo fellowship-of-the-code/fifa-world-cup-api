@@ -52,3 +52,32 @@ describe('MysqlSequelize.isConnected', () => {
     expect(isConnected).toBe(false);
   });
 });
+
+describe('MysqlSequelize.getConnectionStatus', () => {
+  it('should be a function', () => {
+    const db = new MysqlSequelize();
+    expect(db.getConnectionStatus).toBeInstanceOf(Function);
+  });
+
+  it('should return connected when it is able to connect to database', async () => {
+    sequelizeMock.mockReturnValueOnce({
+      authenticate: jest.fn(),
+    });
+
+    const db = new MysqlSequelize();
+    const connectionStatus = await db.getConnectionStatus();
+
+    expect(connectionStatus).toEqual('connected');
+  });
+
+  it('should return disconnected when it is unable to connect to database', async () => {
+    sequelizeMock.mockReturnValueOnce({
+      authenticate: jest.fn().mockRejectedValueOnce(new Error('Error while connecting')),
+    });
+
+    const db = new MysqlSequelize();
+    const connectionStatus = await db.getConnectionStatus();
+
+    expect(connectionStatus).toEqual('disconnected');
+  });
+});
