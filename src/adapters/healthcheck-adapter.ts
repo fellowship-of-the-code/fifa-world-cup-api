@@ -1,8 +1,12 @@
 import { Request, Response } from 'express';
-import { healthcheck } from '../controller/healthcheck-controller';
+import { HealthCheck } from '../controller/healthcheck-controller';
 
+type HealthCheckFn = () => Promise<HealthCheck>;
 export default class HealthCheckAdapter {
-  public static healthcheck(fn: () => healthcheck) {
-    return (_: Request, res: Response): Response => res.json(fn());
+  public static healthcheck(fn: HealthCheckFn) {
+    return async (_: Request, res: Response): Promise<Response> => {
+      const result = await fn();
+      return res.json(result);
+    };
   }
 }
